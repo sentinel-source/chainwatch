@@ -1,0 +1,90 @@
+body {
+    font-family: Arial, sans-serif;
+    background-image: url('background.png'); /* Path to your background image */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color: white;
+}
+
+.container {
+    background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent background */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); /* Add some shadow */
+    width: 350px;
+    text-align: center;
+}
+
+h1 {
+    text-align: center;
+    color: white;
+}
+
+#target-list {
+    margin-top: 20px;
+}
+
+#targets {
+    list-style-type: none;
+    padding: 0;
+}
+
+#targets li {
+    margin-bottom: 10px;
+    font-size: 14px;
+}
+
+/* Style for target links */
+#targets li a {
+    color: white; /* Change the link color to white */
+    text-decoration: underline; /* Remove underline from links */
+}
+
+#targets li a:hover {
+    text-decoration: underline; /* Optional: Add underline on hover */
+}
+
+.btn {
+    background-color: #f0ad4e; /* Button background color */
+    border: none;
+    color: white;
+    padding: 10px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 10px 2px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+#refreshCountdownDiv, #api-call-counter, #api-call-timer {
+    margin-top: 10px;
+    font-size: 14px;
+    color: white;
+}
+
+#install-btn {
+    display: none; /* Initially hidden */
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin: 20px auto; /* Centers the button horizontally */
+    display: block; /* Ensures it's treated as block for centering */
+    width: fit-content; /* Button will only be as wide as its content */
+    text-align: center; /* Ensures the button content stays centered */
+}
+
+
+
