@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bernie's Chain Watcher</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/png" href="/favicon-48x48.png" sizes="48x48">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    
+    <!-- PWA metadata -->
+    <meta name="theme-color" content="#000000">
+    <meta name="description" content="39th Chain Watcher Script">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Bernie's Chain Watcher">
+    
+    <!-- PWA manifest -->
+    <link rel="manifest" href="/manifest.json">
+
+    <!-- OneSignal -->
+    <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+    <script>
+        window.OneSignalDeferred = window.OneSignalDeferred || [];
+        OneSignalDeferred.push(async function(OneSignal) {
+            await OneSignal.init({
+                appId: "2e8c02fe-c7d5-479d-8dc5-c5044c0a36c0",
+                promptOptions: {
+                    slidedown: {
+                        prompts: [
+                            {
+                                type: "push",
+                                text: {
+                                    actionMessage: "Allow push notifications when timer reaches 2.5 minutes",
+                                    acceptButton: "Allow",
+                                    cancelButton: "No thanks"
+                                },
+                                delay: {
+                                    pageViews: 1, // Show after 1 page view
+                                    timeDelay: 1 // Show after 1 seconds
+                                }
+                            }
+                        ]
+                    }
+                }
+            });
+
+            // Check if the user is already subscribed
+            const subscriptionStatus = await OneSignal.isPushNotificationsEnabled();
+            if (!subscriptionStatus) {
+                // If the user is not subscribed, show the notification prompt
+                OneSignal.showSlidedownPrompt();
+            } else {
+                console.log('User is already subscribed to notifications.');
+            }
+        });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <!-- Notification Warning -->
+        <div id="notification-warning" style="display:none; background-color:red; color:white; padding:20px;">
+            Notifications are blocked. Please enable notifications in your browser settings to use this tool.
+        </div>
+
+        <!-- Main Title -->
+        <h1>Bernie's Chain Watcher</h1>
+
+        <!-- Install Button -->
+        <button id="install-btn" style="display: none;">Install App</button>
+
+        <!-- API Key Input Section -->
+        <div id="api-key-container">
+            <p>Please enter your API key:</p>
+            <input type="text" id="api-key-input" placeholder="Enter your API key" />
+            <button id="save-api-key-btn" class="btn">Save</button>
+        </div>
+
+        <!-- Saved API Key Section -->
+        <div id="saved-api-key-container" class="app-content">
+            <p>Saved API Key: <span id="saved-api-key"></span></p>
+            <button id="clear-api-key-btn" class="btn">Clear</button>
+        </div>
+
+        <!-- Chain Info Section -->
+        <div id="chain-info" class="app-content">
+            Loading chain data...
+        </div>
+
+        <!-- Refresh Button Section -->
+        <div id="refresh-container" class="app-content">
+            <button id="refresh-btn" class="btn">Refresh Timer</button>
+        </div>
+
+        <!-- Target List Section -->
+        <div id="target-list" class="app-content">
+            <h3 id="target-header">Available Targets</h3>
+            <ul id="targets"></ul>
+        </div>
+
+        <!-- API Call Info Section -->
+        <div id="api-call-counter" class="app-content">
+            API Calls: 0
+        </div>
+
+        <!-- API Call Timer Section -->
+        <div id="api-call-timer" class="app-content"></div>
+
+        <!-- Refresh Countdown Section -->
+        <div id="refreshCountdownDiv" class="app-content">
+            Next refresh in 10 seconds
+        </div>
+    </div>
+
+    <!-- Service Worker Registration -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/service-worker.js')
+                    .then(registration => {
+                        console.log('ServiceWorker registration successful');
+                    })
+                    .catch(err => {
+                        console.log('ServiceWorker registration failed: ', err);
+                    });
+            });
+        }
+    </script>
+
+    <!-- Main Application Script -->
+    <script src="app.js"></script>
+</body>
+</html>
