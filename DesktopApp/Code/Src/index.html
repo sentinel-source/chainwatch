@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bernie's Chain Watcher</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/png" href="assets/images/favicon-48x48.png">
+</head>
+<body>
+    <div class="container">
+        <!-- Main Title -->
+        <h1>Bernie's Chain Watcher</h1>
+
+        <!-- Chain Info Section -->
+        <div id="chain-info" class="app-content">
+            Loading chain data...
+        </div>
+
+        <!-- Refresh Button Section -->
+        <div id="refresh-container" class="app-content">
+            <button id="refresh-btn" class="btn">Refresh Timer</button>
+        </div>
+
+        <!-- Target List Section -->
+        <div id="target-list" class="app-content">
+            <h3 id="target-header">Available Targets</h3>
+            <ul id="targets"></ul>
+        </div>
+
+        <!-- API Call Info Section -->
+        <div id="api-call-counter" class="app-content">
+            API Calls: 0
+        </div>
+
+        <!-- API Call Timer Section -->
+        <div id="api-call-timer" class="app-content"></div>
+
+        <!-- Refresh Countdown Section -->
+        <div id="refreshCountdownDiv" class="app-content">
+            Next refresh in 10 seconds
+        </div>
+
+        <!-- API Key Container - Now at the bottom -->
+        <div id="api-key-container">
+            <p>Please enter your API key:</p>
+            <input type="text" id="api-key-input" placeholder="Enter your API key" />
+            <button id="save-api-key-btn" class="btn">Save</button>
+        </div>
+
+        <!-- Saved API Key Section - Now at the bottom -->
+        <div id="saved-api-key-container" class="app-content">
+            <p>Saved API Key: <span id="saved-api-key"></span></p>
+            <button id="clear-api-key-btn" class="btn">Clear</button>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
