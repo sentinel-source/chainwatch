@@ -1,6 +1,6 @@
 # Bernie's Chain Watcher
 
-Bernie's Chain Watcher is a powerful chain tracking tool designed specifically for members of the **39th Street Killers**. Using the Torn public API, it provides real-time chain monitoring, timely notifications, and strategic target suggestions to help maintain your chains effectively.
+Bernie's Chain Watcher is a chain tracking tool designed specifically for members of the **39th Street Killers**. Using the Torn public API, it provides real-time chain monitoring, timely notifications, and strategic target suggestions to help maintain your chains effectively.
 
 ## Features
 
