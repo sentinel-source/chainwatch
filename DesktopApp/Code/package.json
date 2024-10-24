@@ -1,0 +1,38 @@
+{
+    "name": "chain-watcher",
+    "version": "1.0.0",
+    "description": "Bernie's Chain Watcher Desktop App",
+    "main": "main.js",
+    "scripts": {
+        "start": "electron .",
+        "build": "electron-builder --win portable"
+    },
+    "author": "Bernie",
+    "license": "ISC",
+    "devDependencies": {
+        "electron": "^28.3.3",
+        "electron-builder": "^24.13.3"
+    },
+    "build": {
+        "appId": "com.bernie.chainwatcher",
+        "productName": "Chain Watcher",
+        "directories": {
+            "output": "dist"
+        },
+        "files": [
+            "src/**/*",
+            "main.js"
+        ],
+        "win": {
+            "target": [
+                {
+                    "target": "portable",
+                    "arch": [
+                        "x64"
+                    ]
+                }
+            ],
+            "icon": "src/assets/images/web-app-manifest-512x512.png"
+        }
+    }
+}
