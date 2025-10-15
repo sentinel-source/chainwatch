@@ -12,7 +12,7 @@ let mainWindow = null;
 let contextMenu = null;
 
 // ==================== CONSTANTS ====================
-const iconPath = path.join(__dirname, 'src/assets/images/web-app-manifest-512x512.png');
+const iconPath = path.join(__dirname, 'Src/assets/images/web-app-manifest-512x512.png');
 
 // ==================== SINGLE INSTANCE LOCK ====================
 const gotTheLock = app.requestSingleInstanceLock();
@@ -44,7 +44,7 @@ if (!gotTheLock) {
             height: 600,
             webPreferences: {
                 // SECURITY: Use preload script instead of nodeIntegration
-                preload: path.join(__dirname, 'src/preload.js'),
+                preload: path.join(__dirname, 'Src/preload.js'),
                 nodeIntegration: false,      // ✅ Secure
                 contextIsolation: true,      // ✅ Secure
                 enableRemoteModule: false,   // ✅ Secure
@@ -60,7 +60,7 @@ if (!gotTheLock) {
             mainWindow.show();
         });
 
-        mainWindow.loadFile('src/index.html');
+        mainWindow.loadFile('Src/index.html');
 
         // Minimize to tray on close instead of quitting
         mainWindow.on('close', function (event) {
