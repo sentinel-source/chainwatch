@@ -185,7 +185,7 @@ For issues, suggestions, or contributions:
 
 ## License
 
-ISC License - See LICENSE file for details
+GNU License - See LICENSE file for details
 
 ---
 
