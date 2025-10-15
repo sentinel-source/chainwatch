@@ -48,7 +48,7 @@ if (!gotTheLock) {
                 nodeIntegration: false,      // ✅ Secure
                 contextIsolation: true,      // ✅ Secure
                 enableRemoteModule: false,   // ✅ Secure
-                sandbox: true                // ✅ Extra security layer
+                sandbox: false                // ✅ Extra security layer
             },
             icon: iconPath,
             show: false, // Don't show until ready-to-show
