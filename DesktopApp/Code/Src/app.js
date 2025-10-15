@@ -1,12 +1,7 @@
 /**
- * Bernie's Chain Watcher - Desktop Application
- * Refactored version with improved timing, state management, and error handling
+ * Bernie's Chain Watcher - Desktop Application (Secure Version)
+ * Refactored with secure Electron architecture and native notifications
  */
-
-// ==================== IMPORTS ====================
-const { ipcRenderer, shell } = require('electron');
-const path = require('path');
-const fs = require('fs').promises;
 
 // ==================== DOM ELEMENTS ====================
 const chainInfoDiv = document.getElementById('chain-info');
@@ -227,9 +222,9 @@ function startChainCountdown() {
             // Display chain count and time
             chainInfoDiv.innerHTML = `<p>Chain: ${state.currentChainCount}<br>Time remaining: ${minutes} minutes, ${seconds} seconds</p>`;
             
-            // Update tray
+            // Update tray via secure IPC
             const status = `Chain: ${state.currentChainCount} (${minutes}m ${seconds}s)`;
-            ipcRenderer.send('update-chain-status', status);
+            window.electronAPI.updateChainStatus(status);
             
             // Check if we need to show warning and fetch targets
             if (timeRemaining <= CONFIG.CHAIN_WARNING_THRESHOLD) {
@@ -242,7 +237,7 @@ function startChainCountdown() {
         } else {
             stopChainCountdown();
             chainInfoDiv.innerHTML = '<p>Chain expired or no active chain</p>';
-            ipcRenderer.send('update-chain-status', 'No active chain');
+            window.electronAPI.updateChainStatus('No active chain');
             hideTargets();
             hideChainExpiringWarning();
             state.targetsFetched = false;
@@ -414,7 +409,7 @@ function updateChainUI(chainData) {
         // No active chain
         stopChainCountdown();
         chainInfoDiv.innerHTML = '<p>No active chain</p>';
-        ipcRenderer.send('update-chain-status', 'No active chain');
+        window.electronAPI.updateChainStatus('No active chain');
         hideTargets();
         hideChainExpiringWarning();
         state.targetsFetched = false;
@@ -427,8 +422,7 @@ function updateChainUI(chainData) {
  */
 async function loadAllTargets() {
     try {
-        const dataPath = path.join(__dirname, 'data.json');
-        const data = await fs.readFile(dataPath, 'utf8');
+        const data = await window.electronAPI.readFile('data.json', { encoding: 'utf8' });
         state.allTargets = JSON.parse(data);
         console.log(`Loaded ${state.allTargets.length} targets from data.json`);
     } catch (error) {
@@ -578,10 +572,14 @@ function displayTargets(targets) {
         targetLink.textContent = `${target.XID} (${target.name || 'Unknown'}) - ${target.status}`;
         targetLink.style.cursor = 'pointer';
         
-        // Open in browser on click
-        targetLink.addEventListener('click', (e) => {
+        // Open in browser on click using secure API
+        targetLink.addEventListener('click', async (e) => {
             e.preventDefault();
-            shell.openExternal(`https://www.torn.com/profiles.php?XID=${target.XID}`);
+            const url = `https://www.torn.com/profiles.php?XID=${target.XID}`;
+            const result = await window.electronAPI.openExternal(url);
+            if (!result.success) {
+                console.error('Failed to open URL:', result.error);
+            }
         });
         
         targetElement.appendChild(targetLink);
@@ -640,10 +638,10 @@ function hideChainExpiringWarning() {
  */
 function sendNotification() {
     try {
-        new Notification('CHAIN EXPIRING!', {
-            body: 'The chain timer has reached 2.5 minutes!',
-            icon: path.join(__dirname, 'assets/images/favicon-48x48.png'),
-            requireInteraction: true
+        // Use Electron's native notifications via IPC
+        window.electronAPI.showNotification({
+            title: 'CHAIN EXPIRING!',
+            body: 'The chain timer has reached 2.5 minutes!'
         });
         console.log('Notification sent');
     } catch (error) {
